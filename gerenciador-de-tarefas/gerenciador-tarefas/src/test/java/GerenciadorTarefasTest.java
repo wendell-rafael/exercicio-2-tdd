@@ -112,4 +112,3 @@ public class GerenciadorTarefasTest {
         Assertions.assertEquals(Prioridade.ALTA, gerenciador.getTarefaById(2).getPrioridade());
     }
 }
-}

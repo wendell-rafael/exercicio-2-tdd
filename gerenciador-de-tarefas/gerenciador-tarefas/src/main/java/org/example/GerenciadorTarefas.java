@@ -66,6 +66,15 @@ public class GerenciadorTarefas {
         );
         return listaOrdenada;
     }
+
+    public void marcarPrioridade(int id, Prioridade prioridade) {
+        if (id >= 0 && id < listaTarefas.size()) {
+            Tarefa tarefa = getTarefaById(id);
+            tarefa.setPrioridade(prioridade);
+        } else {
+            throw new IllegalArgumentException("Índice inválido para marcar prioridade da tarefa.");
+        }
+    }
 }
 
 
