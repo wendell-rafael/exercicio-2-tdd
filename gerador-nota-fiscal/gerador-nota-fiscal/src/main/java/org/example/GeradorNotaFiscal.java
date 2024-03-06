@@ -16,6 +16,9 @@ public class GeradorNotaFiscal {
             case "CONSULTORIA":
                 imposto = 0.25 * fatura.getValor();
                 break;
+            case "TREINAMENTO":
+                imposto = fatura.getValor() * 0.15;
+                break;
             default:
                 imposto = 0;
                 break;
