@@ -5,6 +5,9 @@ import org.example.TipoServico;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GeradorNotaFiscalTest {
@@ -42,7 +45,17 @@ public class GeradorNotaFiscalTest {
         assertEquals(100.0, nf.getValor());
         assertEquals(6.0, nf.getImposto());
     }
-
+    @Test
+    public void testVerificarEnviosESalvamentoAposGerarNotaFiscal() {
+        Fatura fatura = new Fatura("Cliente Teste", "Endereço Teste", TipoServico.OUTRO, 100.0);
+        GeradorNotaFiscal gerador = new GeradorNotaFiscal();
+        gerador.gerarNotaFiscal(fatura);
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        String[] linhasDeSaida = outputStreamCaptor.toString().split(System.lineSeparator());
+        assertEquals("enviando por email", linhasDeSaida[0].trim());
+        assertEquals("enviando pro sap", linhasDeSaida[1].trim());
+        assertEquals("salvando no banco", linhasDeSaida[2].trim());
+    }
 
 
 
