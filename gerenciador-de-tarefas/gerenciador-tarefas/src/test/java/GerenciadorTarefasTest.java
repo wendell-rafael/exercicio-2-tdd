@@ -68,7 +68,6 @@ public class GerenciadorTarefasTest {
 
     @Test
     public void testExibirLista() {
-        // Arrange
         GerenciadorTarefas gerenciador = new GerenciadorTarefas();
 
         gerenciador.criarTarefa("Estudar ATAL", "Preparar slides", "2024-03-15", Prioridade.BAIXA);
@@ -89,13 +88,28 @@ public class GerenciadorTarefasTest {
 
         Assertions.assertEquals(
                 "[Tarefa{id=2, titulo='Estudar V&V', desc='Revisar conceitos', dataVencimento='2024-03-10', prioridade=ALTA}, " +
-                "Tarefa{id=1, titulo='Estudar CDP', desc='Revisar slides', dataVencimento='2024-03-15', prioridade=ALTA}, " +
-                "Tarefa{id=0, titulo='Estudar ATAL', desc='Preparar slides', dataVencimento='2024-03-15', prioridade=BAIXA}, " +
-                "Tarefa{id=3, titulo='Estudar Rec Info', desc='Ler capítulo 5', dataVencimento='2024-03-20', prioridade=MEDIA}]",
+                        "Tarefa{id=1, titulo='Estudar CDP', desc='Revisar slides', dataVencimento='2024-03-15', prioridade=ALTA}, " +
+                        "Tarefa{id=0, titulo='Estudar ATAL', desc='Preparar slides', dataVencimento='2024-03-15', prioridade=BAIXA}, " +
+                        "Tarefa{id=3, titulo='Estudar Rec Info', desc='Ler capítulo 5', dataVencimento='2024-03-20', prioridade=MEDIA}]",
                 listaOrdenada.toString());
     }
 
     @Test
     public void testMarcarPrioridade() {
+        GerenciadorTarefas gerenciador = new GerenciadorTarefas();
+
+        gerenciador.criarTarefa("Estudar ATAL", "Preparar slides", "2024-03-15", Prioridade.MEDIA);
+        gerenciador.criarTarefa("Estudar V&V", "Revisar conceitos", "2024-03-10", Prioridade.ALTA);
+        gerenciador.criarTarefa("Estudar Rec Info", "Ler capítulo 5", "2024-03-20", Prioridade.BAIXA);
+
+        gerenciador.marcarPrioridade(0, Prioridade.ALTA);
+        gerenciador.marcarPrioridade(1, Prioridade.BAIXA);
+        gerenciador.marcarPrioridade(2, Prioridade.ALTA);
+
+        // Assert
+        Assertions.assertEquals(Prioridade.ALTA, gerenciador.getTarefaById(0).getPrioridade());
+        Assertions.assertEquals(Prioridade.BAIXA, gerenciador.getTarefaById(1).getPrioridade());
+        Assertions.assertEquals(Prioridade.ALTA, gerenciador.getTarefaById(2).getPrioridade());
     }
+}
 }
