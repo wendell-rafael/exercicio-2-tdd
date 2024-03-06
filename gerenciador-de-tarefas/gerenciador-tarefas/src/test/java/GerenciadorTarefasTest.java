@@ -63,7 +63,6 @@ public class GerenciadorTarefasTest {
         gerenciador.criarTarefa(titulo, descricao, dataVencimento, prioridade);
         Assertions.assertEquals(1, gerenciador.getTarefas().size());
         gerenciador.excluirTarefa(0);
-        List<Tarefa> tarefas2 = gerenciador.getTarefas();
         Assertions.assertEquals(0, gerenciador.getTarefas().size());
     }
 
