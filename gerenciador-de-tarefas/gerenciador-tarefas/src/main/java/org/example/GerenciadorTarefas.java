@@ -1,7 +1,9 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Collections;
 
 public class GerenciadorTarefas {
     private List<Tarefa> listaTarefas;
@@ -55,5 +57,15 @@ public class GerenciadorTarefas {
         }
     }
 
+    public List<Tarefa> exibirLista() {
+        List<Tarefa> listaOrdenada = new ArrayList<>(listaTarefas);
 
+        listaOrdenada.sort(
+                Comparator.comparing(Tarefa::getDataVencimento)
+                        .thenComparing(Tarefa::getPrioridade, Comparator.reverseOrder())
+        );
+        return listaOrdenada;
+    }
 }
+
+

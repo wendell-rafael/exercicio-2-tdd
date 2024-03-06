@@ -50,4 +50,15 @@ public class Tarefa {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Tarefa{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", desc='" + desc + '\'' +
+                ", dataVencimento='" + dataVencimento + '\'' +
+                ", prioridade=" + prioridade +
+                '}';
+    }
 }
