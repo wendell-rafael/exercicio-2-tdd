@@ -54,4 +54,6 @@ public class GerenciadorTarefas {
             throw new IllegalArgumentException("Índice inválido para exclusão de tarefa.");
         }
     }
+
+
 }
