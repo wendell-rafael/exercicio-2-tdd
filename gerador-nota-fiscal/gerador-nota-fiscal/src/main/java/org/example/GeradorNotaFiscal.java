@@ -13,10 +13,10 @@ public class GeradorNotaFiscal {
     public NotaFiscal gerarNotaFiscal(Fatura fatura) {
         double imposto;
         switch (fatura.getTipoServico()) {
-            case "CONSULTORIA":
+            case CONSULTORIA:
                 imposto = 0.25 * fatura.getValor();
                 break;
-            case "TREINAMENTO":
+            case TREINAMENTO:
                 imposto = fatura.getValor() * 0.15;
                 break;
             default:
@@ -25,10 +25,6 @@ public class GeradorNotaFiscal {
         }
 
         NotaFiscal notaFiscal = new NotaFiscal(fatura.getCliente(), fatura.getValor(), imposto);
-
-        this.smtp.envia(notaFiscal);
-        this.sap.envia(notaFiscal);
-        this.notaFiscalDao.salva(notaFiscal);
 
         return notaFiscal;
     }

@@ -3,10 +3,10 @@ package org.example;
 public class Fatura {
     private String cliente;
     private String endereco;
-    private String tipoServico;
+    private TipoServico tipoServico;
     private double valor;
 //solucao
-    public Fatura(String cliente, String endereco, String tipoServico, double valor) {
+    public Fatura(String cliente, String endereco, TipoServico tipoServico, double valor) {
         this.cliente = cliente;
         this.endereco = endereco;
         this.tipoServico = tipoServico;
@@ -29,11 +29,11 @@ public class Fatura {
         this.endereco = endereco;
     }
 
-    public String getTipoServico() {
+    public TipoServico getTipoServico() {
         return tipoServico;
     }
 
-    public void setTipoServico(String tipoServico) {
+    public void setTipoServico(TipoServico tipoServico) {
         this.tipoServico = tipoServico;
     }
 
