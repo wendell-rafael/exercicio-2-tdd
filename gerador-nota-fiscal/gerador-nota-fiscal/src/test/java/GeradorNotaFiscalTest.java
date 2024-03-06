@@ -1,5 +1,10 @@
+import org.example.Fatura;
+import org.example.GeradorNotaFiscal;
+import org.example.NotaFiscal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GeradorNotaFiscalTest {
 
@@ -11,8 +16,8 @@ public class GeradorNotaFiscalTest {
         NotaFiscal notaFiscal = gerador.gerarNotaFiscal(fatura);
 
 
-        assertEquals("Cliente Teste", notaFiscal.getNomeCliente());
-        assertEquals(100.0, notaFiscal.getValor(), 100.0);
-        assertEquals(250.0, notaFiscal.getImposto(),25.0);
+        assertEquals("Cliente Teste", notaFiscal.getCliente());
+        assertEquals(100.0, notaFiscal.getValor());
+        assertEquals(25.0, notaFiscal.getImposto());
     }
 }
