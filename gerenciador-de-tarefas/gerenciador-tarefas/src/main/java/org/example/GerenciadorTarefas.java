@@ -18,4 +18,9 @@ public class GerenciadorTarefas {
     public List<Tarefa> getTarefas() {
         return listaTarefas;
     }
+
+    public Tarefa getTarefaById(int id) {
+        return listaTarefas.get(id);
+    }
+
 }

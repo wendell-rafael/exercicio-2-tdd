@@ -33,6 +33,22 @@ public class GerenciadorTarefasTest {
 
     @Test
     public void testAtualizarTarefa() {
+        GerenciadorTarefas gerenciador = new GerenciadorTarefas();
+        String titulo = "Estudar V&V";
+        String descricao = "Estudar V&V hoje a tarde";
+        String dataVencimento = "2024-03-06";
+        Prioridade prioridade = Prioridade.ALTA;
+        gerenciador.criarTarefa(titulo, descricao, dataVencimento, prioridade);
+
+        String novoTitulo = "Estudar atal";
+        String novaDescricao = "Como tem prova, estudar atal, na verdade";
+        gerenciador.atualizarTarefa(novoTitulo, novaDescricao, null, null);
+        Tarefa tarefaAtualizada = gerenciador.getTarefaById(1);
+
+        Assertions.assertEquals(novoTitulo, tarefaAtualizada.getTitulo());
+        Assertions.assertEquals(novaDescricao, tarefaAtualizada.getDesc());
+        Assertions.assertEquals(dataVencimento, tarefaAtualizada.getDataVencimento());
+        Assertions.assertEquals(prioridade, tarefaAtualizada.getPrioridade());
     }
 
     @Test
