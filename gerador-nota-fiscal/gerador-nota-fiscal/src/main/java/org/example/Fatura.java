@@ -5,7 +5,7 @@ public class Fatura {
     private String endereco;
     private String tipoServico;
     private double valor;
-
+//solucao
     public Fatura(String cliente, String endereco, String tipoServico, double valor) {
         this.cliente = cliente;
         this.endereco = endereco;
