@@ -71,23 +71,28 @@ public class GerenciadorTarefasTest {
         // Arrange
         GerenciadorTarefas gerenciador = new GerenciadorTarefas();
 
-        gerenciador.criarTarefa("Estudar ATAL", "Preparar slides", "2024-03-15", Prioridade.MEDIA);
+        gerenciador.criarTarefa("Estudar ATAL", "Preparar slides", "2024-03-15", Prioridade.BAIXA);
+        gerenciador.criarTarefa("Estudar CDP", "Revisar slides", "2024-03-15", Prioridade.ALTA);
         gerenciador.criarTarefa("Estudar V&V", "Revisar conceitos", "2024-03-10", Prioridade.ALTA);
-        gerenciador.criarTarefa("Estudar Rec Info", "Ler capítulo 5", "2024-03-20", Prioridade.BAIXA);
+        gerenciador.criarTarefa("Estudar Rec Info", "Ler capítulo 5", "2024-03-20", Prioridade.MEDIA);
 
-        // Act
         List<Tarefa> listaOrdenada = gerenciador.exibirLista();
-
-        // Assert
-        Assertions.assertEquals(3, listaOrdenada.size());
 
         Assertions.assertEquals(0, listaOrdenada.get(0).getDataVencimento().compareTo("2024-03-10"));
         Assertions.assertEquals(0, listaOrdenada.get(1).getDataVencimento().compareTo("2024-03-15"));
-        Assertions.assertEquals(0, listaOrdenada.get(2).getDataVencimento().compareTo("2024-03-20"));
-
+        Assertions.assertEquals(0, listaOrdenada.get(2).getDataVencimento().compareTo("2024-03-15"));
+        Assertions.assertEquals(0, listaOrdenada.get(3).getDataVencimento().compareTo("2024-03-20"));
         Assertions.assertEquals(0, listaOrdenada.get(0).getPrioridade().compareTo(Prioridade.ALTA));
-        Assertions.assertEquals(0, listaOrdenada.get(1).getPrioridade().compareTo(Prioridade.MEDIA));
+        Assertions.assertEquals(0, listaOrdenada.get(1).getPrioridade().compareTo(Prioridade.ALTA));
         Assertions.assertEquals(0, listaOrdenada.get(2).getPrioridade().compareTo(Prioridade.BAIXA));
+        Assertions.assertEquals(0, listaOrdenada.get(3).getPrioridade().compareTo(Prioridade.MEDIA));
+
+        Assertions.assertEquals(
+                "[Tarefa{id=2, titulo='Estudar V&V', desc='Revisar conceitos', dataVencimento='2024-03-10', prioridade=ALTA}, " +
+                "Tarefa{id=1, titulo='Estudar CDP', desc='Revisar slides', dataVencimento='2024-03-15', prioridade=ALTA}, " +
+                "Tarefa{id=0, titulo='Estudar ATAL', desc='Preparar slides', dataVencimento='2024-03-15', prioridade=BAIXA}, " +
+                "Tarefa{id=3, titulo='Estudar Rec Info', desc='Ler capítulo 5', dataVencimento='2024-03-20', prioridade=MEDIA}]",
+                listaOrdenada.toString());
     }
 
     @Test
