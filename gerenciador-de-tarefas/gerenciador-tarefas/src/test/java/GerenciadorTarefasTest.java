@@ -55,6 +55,16 @@ public class GerenciadorTarefasTest {
 
     @Test
     public void testExcluirTarefa() {
+        GerenciadorTarefas gerenciador = new GerenciadorTarefas();
+        String titulo = "Estudar V&V";
+        String descricao = "Estudar V&V hoje a tarde";
+        String dataVencimento = "2024-03-06";
+        Prioridade prioridade = Prioridade.ALTA;
+        gerenciador.criarTarefa(titulo, descricao, dataVencimento, prioridade);
+        Assertions.assertEquals(1, gerenciador.getTarefas().size());
+        gerenciador.excluirTarefa(0);
+        List<Tarefa> tarefas2 = gerenciador.getTarefas();
+        Assertions.assertEquals(0, gerenciador.getTarefas().size());
     }
 
     @Test
