@@ -40,10 +40,12 @@ public class GerenciadorTarefasTest {
         Prioridade prioridade = Prioridade.ALTA;
         gerenciador.criarTarefa(titulo, descricao, dataVencimento, prioridade);
 
+        //Nesse caso, modifiquei apenas titulo e descrição
         String novoTitulo = "Estudar atal";
         String novaDescricao = "Como tem prova, estudar atal, na verdade";
-        gerenciador.atualizarTarefa(novoTitulo, novaDescricao, null, null);
-        Tarefa tarefaAtualizada = gerenciador.getTarefaById(1);
+        gerenciador.atualizarTarefa(0, novoTitulo, novaDescricao, null, null);
+        Tarefa tarefaAtualizada = gerenciador.getTarefaById(0);
+
 
         Assertions.assertEquals(novoTitulo, tarefaAtualizada.getTitulo());
         Assertions.assertEquals(novaDescricao, tarefaAtualizada.getDesc());
