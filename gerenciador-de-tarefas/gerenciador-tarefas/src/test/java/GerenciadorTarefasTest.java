@@ -3,10 +3,8 @@ import org.example.Prioridade;
 import org.example.Tarefa;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
 
 
 public class GerenciadorTarefasTest {

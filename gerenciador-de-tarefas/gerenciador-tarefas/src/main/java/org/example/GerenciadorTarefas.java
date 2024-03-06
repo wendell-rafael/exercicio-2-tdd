@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Collections;
+import java.util.function.Consumer;
 
 public class GerenciadorTarefas {
     private List<Tarefa> listaTarefas;
@@ -26,35 +27,19 @@ public class GerenciadorTarefas {
     }
 
     public void atualizarTarefa(int id, String novoTitulo, String novaDescricao, String novaDataVencimento, Prioridade novaPrioridade) {
-        if (id >= 0 && id < listaTarefas.size()) {
-            Tarefa tarefaAtualizada = getTarefaById(id);
+        isIndiceValido(id);
 
-            if (novoTitulo != null) {
-                tarefaAtualizada.setTitulo(novoTitulo);
-            }
+        Tarefa tarefaAtualizada = getTarefaById(id);
 
-            if (novaDescricao != null) {
-                tarefaAtualizada.setDesc(novaDescricao);
-            }
-
-            if (novaDataVencimento != null) {
-                tarefaAtualizada.setDataVencimento(novaDataVencimento);
-            }
-
-            if (novaPrioridade != null) {
-                tarefaAtualizada.setPrioridade(novaPrioridade);
-            }
-        } else {
-            throw new IllegalArgumentException("Índice inválido para atualização de tarefa.");
-        }
+        atualizarAtributoSeNaoNulo(novoTitulo, tarefaAtualizada::setTitulo);
+        atualizarAtributoSeNaoNulo(novaDescricao, tarefaAtualizada::setDesc);
+        atualizarAtributoSeNaoNulo(novaDataVencimento, tarefaAtualizada::setDataVencimento);
+        atualizarAtributoSeNaoNulo(novaPrioridade, tarefaAtualizada::setPrioridade);
     }
 
     public void excluirTarefa(int id) {
-        if (id >= 0 && id < listaTarefas.size()) {
-            listaTarefas.remove(id);
-        } else {
-            throw new IllegalArgumentException("Índice inválido para exclusão de tarefa.");
-        }
+        isIndiceValido(id);
+        listaTarefas.remove(id);
     }
 
     public List<Tarefa> exibirLista() {
@@ -68,11 +53,22 @@ public class GerenciadorTarefas {
     }
 
     public void marcarPrioridade(int id, Prioridade prioridade) {
-        if (id >= 0 && id < listaTarefas.size()) {
-            Tarefa tarefa = getTarefaById(id);
-            tarefa.setPrioridade(prioridade);
-        } else {
+        isIndiceValido(id);
+        Tarefa tarefa = getTarefaById(id);
+        tarefa.setPrioridade(prioridade);
+
+    }
+
+    private void isIndiceValido(int id) {
+        if (id < 0 || id > listaTarefas.size()) {
             throw new IllegalArgumentException("Índice inválido para marcar prioridade da tarefa.");
+        }
+
+    }
+
+    private <T> void atualizarAtributoSeNaoNulo(T novoValor, Consumer<T> setter) {
+        if (novoValor != null) {
+            setter.accept(novoValor);
         }
     }
 }
