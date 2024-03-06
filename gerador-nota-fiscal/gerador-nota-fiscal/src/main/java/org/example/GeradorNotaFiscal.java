@@ -20,7 +20,7 @@ public class GeradorNotaFiscal {
                 imposto = fatura.getValor() * 0.15;
                 break;
             default:
-                imposto = 0;
+                imposto = 0.06 * fatura.getValor();
                 break;
         }
 
