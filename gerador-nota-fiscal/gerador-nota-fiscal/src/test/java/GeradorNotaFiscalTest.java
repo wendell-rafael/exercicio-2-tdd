@@ -2,7 +2,9 @@ import org.example.Fatura;
 import org.example.GeradorNotaFiscal;
 import org.example.NotaFiscal;
 import org.example.TipoServico;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -11,6 +13,12 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GeradorNotaFiscalTest {
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
 
     @Test
     public void testGerarNotaFiscalServicoConsultoria() {
@@ -50,7 +58,6 @@ public class GeradorNotaFiscalTest {
         Fatura fatura = new Fatura("Cliente Teste", "Endereço Teste", TipoServico.OUTRO, 100.0);
         GeradorNotaFiscal gerador = new GeradorNotaFiscal();
         gerador.gerarNotaFiscal(fatura);
-        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         String[] linhasDeSaida = outputStreamCaptor.toString().split(System.lineSeparator());
         assertEquals("enviando por email", linhasDeSaida[0].trim());
         assertEquals("enviando pro sap", linhasDeSaida[1].trim());

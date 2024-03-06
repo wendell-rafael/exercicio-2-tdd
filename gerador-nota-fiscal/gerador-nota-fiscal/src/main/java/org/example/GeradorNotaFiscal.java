@@ -25,7 +25,9 @@ public class GeradorNotaFiscal {
         }
 
         NotaFiscal notaFiscal = new NotaFiscal(fatura.getCliente(), fatura.getValor(), imposto);
-
+        this.smtp.envia(notaFiscal);
+        this.sap.envia(notaFiscal);
+        this.notaFiscalDao.salva(notaFiscal);
         return notaFiscal;
     }
 
