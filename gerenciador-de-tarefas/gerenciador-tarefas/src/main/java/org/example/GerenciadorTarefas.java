@@ -47,4 +47,11 @@ public class GerenciadorTarefas {
         }
     }
 
+    public void excluirTarefa(int id) {
+        if (id >= 0 && id < listaTarefas.size()) {
+            listaTarefas.remove(id);
+        } else {
+            throw new IllegalArgumentException("Índice inválido para exclusão de tarefa.");
+        }
+    }
 }
