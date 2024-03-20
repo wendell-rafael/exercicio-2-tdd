@@ -40,21 +40,27 @@ public class GerenciadorTarefas {
     }
 
     public Tarefa getTarefaById(int id) {
-        return listaTarefas.get(id);
-    }
+        if (id >= 0 && id < listaTarefas.size()) {
+            return listaTarefas.get(id);
+        } else {
+            return null;
+        }    }
 
-    public void atualizarTarefa(int id, String novoTitulo, String novaDescricao, String novaDataVencimento, Prioridade novaPrioridade) {
+    public String atualizarTarefa(int id, String novoTitulo, String novaDescricao, String novaDataVencimento, Prioridade novaPrioridade) {
         Tarefa tarefaAtualizada = getTarefaById(id);
-
+        if (tarefaAtualizada == null){
+            return "ERRO AO ATUALIZAR TAREFA";
+        }
         atualizarAtributoSeNaoNulo(novoTitulo, tarefaAtualizada::setTitulo);
         atualizarAtributoSeNaoNulo(novaDescricao, tarefaAtualizada::setDesc);
         atualizarAtributoSeNaoNulo(novaDataVencimento, tarefaAtualizada::setDataVencimento);
         atualizarAtributoSeNaoNulo(novaPrioridade, tarefaAtualizada::setPrioridade);
+        return "TAREFA ATUALIZADA";
     }
 
     public String excluirTarefa(int id) {
         if (!listaTarefas.isEmpty()) {
-            if(isIndiceValido(id)){
+            if (isIndiceValido(id)) {
                 listaTarefas.remove(id);
                 return "EXCLUIDA COM SUCESSO";
             }
