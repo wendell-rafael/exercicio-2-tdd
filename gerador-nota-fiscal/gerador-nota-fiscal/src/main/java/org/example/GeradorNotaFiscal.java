@@ -11,6 +11,16 @@ public class GeradorNotaFiscal {
         this.sap = new SAP();
     }
     public NotaFiscal gerarNotaFiscal(Fatura fatura) {
+        if (fatura.getCliente() == null || fatura.getCliente().isBlank()) {
+            throw new IllegalArgumentException("Nome do cliente não pode ser nulo.");
+        }
+        if (fatura.getValor() == null) {
+            throw new IllegalArgumentException("Valor da fatura não pode ser nulo.");
+        }
+        if (Double.isInfinite(fatura.getValor())) {
+            throw new IllegalArgumentException("Valor da fatura não pode ser infinito.");
+        }
+
         double imposto;
         switch (fatura.getTipoServico()) {
             case CONSULTORIA:

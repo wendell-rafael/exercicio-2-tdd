@@ -4,9 +4,9 @@ public class Fatura {
     private String cliente;
     private String endereco;
     private TipoServico tipoServico;
-    private double valor;
-//solucao
-    public Fatura(String cliente, String endereco, TipoServico tipoServico, double valor) {
+    private Double valor;
+
+    public Fatura(String cliente, String endereco, TipoServico tipoServico, Double valor) {
         this.cliente = cliente;
         this.endereco = endereco;
         this.tipoServico = tipoServico;
@@ -37,7 +37,7 @@ public class Fatura {
         this.tipoServico = tipoServico;
     }
 
-    public double getValor() {
+    public Double getValor() {
         return valor;
     }
 
