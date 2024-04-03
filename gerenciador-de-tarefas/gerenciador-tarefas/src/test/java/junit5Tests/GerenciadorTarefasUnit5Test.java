@@ -7,20 +7,14 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class GerenciadorTarefasTest5 {
+public class GerenciadorTarefasUnit5Test {
 
     private GerenciadorTarefas gerenciador;
 
-    @BeforeAll
-    static void setUpAll() {
-        System.out.println("Configuração inicial antes de todos os testes");
-    }
 
     @BeforeEach
     void setUp() {
@@ -41,16 +35,13 @@ public class GerenciadorTarefasTest5 {
         @Test
         @DisplayName("Deve criar uma nova tarefa")
         void deveCriarTarefa() {
-            // Arrange
             String titulo = "Comprar mantimentos";
             String descricao = "Ir ao supermercado e comprar os itens necessários";
             String dataVencimento = "2024-06-15";
             Prioridade prioridade = Prioridade.MEDIA;
 
-            // Act
             String resultado = gerenciador.criarTarefa(titulo, descricao, dataVencimento, prioridade);
 
-            // Assert
             assertEquals("CRIADO COM SUCESSO", resultado);
             List<Tarefa> tarefas = gerenciador.getTarefas();
             assertEquals(1, tarefas.size());
@@ -59,6 +50,34 @@ public class GerenciadorTarefasTest5 {
             assertEquals(descricao, tarefaCriada.getDesc());
             assertEquals(dataVencimento, tarefaCriada.getDataVencimento());
             assertEquals(prioridade, tarefaCriada.getPrioridade());
+        }
+
+        @Test
+        @DisplayName("Deve retornar erro ao criar tarefa com data no passado")
+        void deveRetornarErroAoCriarTarefaComDataNoPassado() {
+            String titulo = "Tarefa com data passada";
+            String descricao = "Descrição da tarefa com data passada";
+            String dataVencimento = "2020-01-01";
+            Prioridade prioridade = Prioridade.BAIXA;
+
+            String resultado = gerenciador.criarTarefa(titulo, descricao, dataVencimento, prioridade);
+
+            assertEquals("ERRO AO CRIAR TAREFA", resultado);
+            assertEquals(0, gerenciador.getTarefas().size());
+        }
+
+        @Test
+        @DisplayName("Deve retornar erro ao criar tarefa com data no passado")
+        void deveRetornarErroAoCriarTarefaComTituloInvalido() {
+            String titulo = "";
+            String descricao = "Descrição da tarefa com data passada";
+            String dataVencimento = "2024-06-01";
+            Prioridade prioridade = Prioridade.BAIXA;
+
+            String resultado = gerenciador.criarTarefa(titulo, descricao, dataVencimento, prioridade);
+
+            assertEquals("ERRO AO CRIAR TAREFA", resultado);
+            assertEquals(0, gerenciador.getTarefas().size());
         }
     }
 
@@ -69,26 +88,34 @@ public class GerenciadorTarefasTest5 {
         @Test
         @DisplayName("Deve atualizar uma tarefa existente")
         void deveAtualizarTarefa() {
-            // Arrange
             String titulo = "Estudar V&V";
             String descricao = "Estudar V&V hoje a tarde";
             String dataVencimento = "2024-06-15";
             Prioridade prioridade = Prioridade.ALTA;
             gerenciador.criarTarefa(titulo, descricao, dataVencimento, prioridade);
 
-            // Act
             String novoTitulo = "Estudar atal";
             String novaDescricao = "Como tem prova, estudar atal, na verdade";
             gerenciador.atualizarTarefa(0, novoTitulo, novaDescricao, null, null);
 
-            // Assert
             Tarefa tarefaAtualizada = gerenciador.getTarefaById(0);
             assertEquals(novoTitulo, tarefaAtualizada.getTitulo());
             assertEquals(novaDescricao, tarefaAtualizada.getDesc());
             assertEquals(dataVencimento, tarefaAtualizada.getDataVencimento());
             assertEquals(prioridade, tarefaAtualizada.getPrioridade());
         }
+
+        @Test
+        @DisplayName("Deve retornar erro ao atualizar tarefa inexistente")
+        void deveRetornarErroAoAtualizarTarefaInexistente() {
+            int idTarefaInexistente = 123; // ID de uma tarefa inexistente
+
+            String resultado = gerenciador.atualizarTarefa(idTarefaInexistente, "Novo Título", "Nova Descrição", "2024-06-15", Prioridade.ALTA);
+
+            assertEquals("ERRO AO ATUALIZAR TAREFA", resultado);
+        }
     }
+
 
     @Nested
     @DisplayName("Testes para excluir tarefa")
@@ -210,6 +237,17 @@ public class GerenciadorTarefasTest5 {
             assertEquals("EXCLUIDA COM SUCESSO", resultado);
             Assertions.assertTrue(gerenciador.getTarefas().isEmpty());
         }
+
+        @Test
+        @DisplayName("Deve retornar erro ao excluir tarefa inexistente")
+        void deveRetornarErroAoExcluirTarefaInexistente() {
+            int idTarefaInexistente = 123; // ID de uma tarefa inexistente
+
+            String resultado = gerenciador.excluirTarefa(idTarefaInexistente);
+
+            assertEquals("ERRO AO EXCLUIR TAREFA", resultado);
+        }
+
     }
 
 
